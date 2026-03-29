@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: btg-challenge-api
+  data:
+    mongodb:
+      auto-index-creation: false
+      host: localhost
+      port: 27017
+      database: btgpactualdb
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: 123456

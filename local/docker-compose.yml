@@ -1,0 +1,52 @@
+services:
+  mongodb:
+    image: mongo:7.0-jammy
+    container_name: mongodb
+
+    restart: unless-stopped
+
+    ports:
+      - "27017:27017"
+
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS:-senha123}
+
+    command: >
+      mongod
+      --wiredTigerCacheSizeGB 0.25
+      --quiet
+
+    volumes:
+      - /home/ricardo/Downloads/H2-Data-Bases/mongo:/data/db
+      - /tmp/init-mongo-auth.sh:/docker-entrypoint-initdb.d/init-mongo-auth.sh
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "0.5"
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    hostname: rabbit-server # Garante a consistência dos dados no volume
+    restart: unless-stopped
+    ports:
+      - "5672:5672"   # Protocolo AMQP
+      - "15672:15672" # Painel de Gerenciamento
+    volumes:
+      - /home/ricardo/Downloads/H2-Data-Bases/rabbitmq:/var/lib/rabbitmq/
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBIT_USER:-admin}
+      - RABBITMQ_DEFAULT_PASS=${RABBIT_PASS:-123456}
+    deploy:
+      resources:
+        limits:
+          memory: 512M # Ajuste conforme sua necessidade
