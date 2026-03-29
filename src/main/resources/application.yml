@@ -7,8 +7,11 @@ spring:
       host: localhost
       port: 27017
       database: btgpactualdb
+      username: admin
+      password: ${MONGO_PASS:senha123}
+
   rabbitmq:
     host: localhost
     port: 5672
     username: admin
-    password: ${RABBIT_PASS:-123456}
+    password: ${RABBIT_PASS:123456}

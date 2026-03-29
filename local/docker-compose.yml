@@ -16,6 +16,7 @@ services:
       mongod
       --wiredTigerCacheSizeGB 0.25
       --quiet
+      --auth
 
     volumes:
       - /home/ricardo/Downloads/H2-Data-Bases/mongo:/data/db
