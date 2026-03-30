@@ -16,5 +16,9 @@ spring:
 logging:
   level:
     root: INFO
-    org.springframework.data.mongodb: DEBUG
-    tech.buildrun.btgpactual: DEBUG
+    org.springframework.data.mongodb: INFO
+    tech.buildrun.btgpactual: INFO
+
+server:
+  port: 8080
+
